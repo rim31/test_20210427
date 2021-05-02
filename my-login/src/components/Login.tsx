@@ -3,70 +3,70 @@ import React from 'react';
 import '../App.css';
 import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router';
-// import { content } from '../static';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import checkData from '../utils/utils';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const schema = yup.object().shape({
-  email: yup.string()
-    // .matches(/^demo@myunisoft.fr$/, "mauvais email test")
-    .required("email is required"),
-  password: yup.string()
-    // .matches(/^myunisoft$/, "mauvais mot de passe")
-    .required("password is required"),
+  email: yup.string().required("email is required"),
+  password: yup.string().required("password is required"),
 })
+
 type Inputs = {
   email: string,
   password: string,
 };
 
 export default function Login() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>({
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
     resolver: yupResolver(schema)
   });
   const history = useHistory();
-  const onSubmit = (data: any) => {
-    console.log("submit", data)
-    if (checkData(data))
-      history.push("/results");
-  };
   const [showPwd, setShowPwd] = React.useState<boolean>(false)
+  const [ShowError, setShowError] = React.useState<boolean>(true)
 
-  // console.log(watch("email")) // debug
-  // console.log(watch("password")) // debug
+  /**
+   * onSubmit function()
+   * check data email and password are corrects with checkData() and display error or redirect then
+   * @param data 
+   */
+  const onSubmit = (data: any) => {
+    if (checkData(data) === true) {
+      history.push("/results");
+    } else {
+      setShowError(false);
+    }
+  };
   return (
-    <div className="App" >
+    <div className="Login" >
 
       <form onSubmit={handleSubmit(onSubmit)} className="log-form container">
-        <h1>Title : Login</h1>
+        <h1>Connectez vous <br /> à MyUnisoft</h1>
         <div>
-          <p>
+          <div>
             <label htmlFor="email" className="label">Adresse email</label>
             <input {...register("email")} className="inputForm" placeholder=""
             />
-          </p>
-          <p className="error">
-            {errors.email ? <span>please enter a valid email</span> : <span></span>}
-          </p>
+            {errors.email ? <p className="error">please enter a valid email</p> : <p className="error"></p>}
+          </div>
         </div>
 
         <div>
-          <p>
+          <div>
             <label htmlFor="password" className="label">Mot de passe</label>
             <input {...register("password", { required: true })} className="inputForm" type={showPwd ? "text" : "password"} placeholder="" />
-            <span id="eyeIcon" className="fa fa-eye" onClick={() => { setShowPwd(!showPwd); console.log(`showPwd`, showPwd) }}>👁️</span>
+            <span id="eyeIcon" className="fa fa-eye" onClick={() => setShowPwd(!showPwd)}>{!showPwd ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}</span>
             <span className="forgot" onClick={() => alert("email sent")}>Forgot Username?</span>
-          </p>
-          <p className="error">
-            {errors.password && <span>This field is required</span>}
-          </p>
+            {errors.password ? <p className="error">This field is required</p> : <p className="error"></p>}
+          </div>
         </div>
 
-
         <button type="submit" className="btn">
-          Submit
+          Se connecter
           </button>
+        {!ShowError ? <p className="error">wrong login/password</p> : <p className="error"></p>}
+
       </form>
 
     </div >

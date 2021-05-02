@@ -22,13 +22,37 @@ export default function Results() {
     getResults();
   }, [])
 
+  const RenderTableHeader = () => {
+    return (<>
+      <th>name</th>
+      <th>age</th>
+      <th>dev</th>
+      <th>company</th>
+      <th>years</th>
+      <th>features</th>
+    </>
+    )
+  }
+
   return (
     <div>
+      {/* <a href="/">BACK</a> */}
       <h1>results</h1>
-      <table>
-        {results && (results.map((row: IUsers) => {
-          return (<div key={row.id}>{row.name}</div>)
-        }))}
+      <table id="myTable">
+        <tbody>
+          <RenderTableHeader />
+          {results && (results.map((row: IUsers) => {
+            return (
+              <tr key={row.id}>
+                <td>{row.name}</td>
+                <td>{row.age}</td>
+                <td>{row.dev}</td>
+                <td>{row.company}</td>
+                <td>{row.years}</td>
+                <td>{row.features.length}</td>
+              </tr>)
+          }))}
+        </tbody>
       </table>
     </div>
   )
