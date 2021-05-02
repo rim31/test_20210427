@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
  h1 {
    padding-bottom: 30px;
-   font-family: 'Roboto', sans-serif;
   }
 
+/* /////////// Login component /////// */
 
 .inputForm {
   font-size: 1.4em;
@@ -27,7 +31,6 @@
   color: lightgrey;
   font-size: 1.5em;
 }
-
 
 .container #eyeIcon{
   margin-left: -25px;
@@ -63,6 +66,7 @@
 .log-form input:focus {
   outline: none;
 }
+
 .log-form .btn {
   display: inline-block;
   background: #5bd3d3;
@@ -91,7 +95,6 @@
   padding: 9px;
   margin-bottom: 9px;;
   float: right;
-
 }
 
 .label {
@@ -107,7 +110,7 @@
 .error {
   color: red;
   font-size: 0.75em;
-  text-align: center;
+  text-align: left;
   height: 1em;
 }
 

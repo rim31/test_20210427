@@ -8,6 +8,9 @@ import * as yup from 'yup';
 import checkData from '../utils/utils';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
+/**
+ * schema for error message if the inputs are wrong in login
+ */
 const schema = yup.object().shape({
   email: yup.string().required("email is required"),
   password: yup.string().required("password is required"),
@@ -33,7 +36,7 @@ export default function Login() {
    */
   const onSubmit = (data: any) => {
     if (checkData(data) === true) {
-      history.push("/results");
+      history.push("/home/users");
     } else {
       setShowError(false);
     }
@@ -65,7 +68,7 @@ export default function Login() {
         <button type="submit" className="btn">
           Se connecter
           </button>
-        {!ShowError ? <p className="error">wrong login/password</p> : <p className="error"></p>}
+        {!ShowError ? <p className="error">Bad credentials</p> : <p className="error"></p>}
 
       </form>
 
