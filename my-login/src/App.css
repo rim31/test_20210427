@@ -99,3 +99,9 @@
   padding: 0;
   float: left;
 }
+
+.error {
+  color: "red";
+  font-size: 0.75em;
+  text-align: center;
+}
